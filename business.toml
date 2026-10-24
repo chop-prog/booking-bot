@@ -1,0 +1,58 @@
+# Everything a business owner may want to change lives here: no code changes needed.
+# After editing, restart the bot.
+
+name = "Барбершоп «Бритва»"
+address = "Видное, ул. Школьная, 1"
+contacts = "Телефон: +7 900 000-00-00 (демо)"
+timezone = "Europe/Moscow"
+
+days_ahead = 7          # how many days ahead a client can book
+step_minutes = 30       # slots start every 30 minutes
+min_lead_minutes = 60   # earliest booking: one hour from now
+remind_before_hours = 3
+
+# Working hours by weekday: mon … sun. An empty list means closed.
+[hours]
+mon = ["10:00", "20:00"]
+tue = ["10:00", "20:00"]
+wed = ["10:00", "20:00"]
+thu = ["10:00", "20:00"]
+fri = ["10:00", "21:00"]
+sat = ["11:00", "18:00"]
+sun = []
+
+[[services]]
+id = "cut"
+name = "Мужская стрижка"
+price = 1500
+minutes = 60
+
+[[services]]
+id = "beard"
+name = "Оформление бороды"
+price = 900
+minutes = 30
+
+[[services]]
+id = "combo"
+name = "Стрижка + борода"
+price = 2200
+minutes = 90
+
+[[services]]
+id = "kids"
+name = "Детская стрижка"
+price = 1000
+minutes = 30
+
+[[faq]]
+q = "Как отменить или перенести запись?"
+a = "Откройте «Мои записи» и нажмите «Отменить». Потом запишитесь на новое время. Отменять лучше не позже чем за 2 часа."
+
+[[faq]]
+q = "Можно оплатить картой?"
+a = "Да, принимаем карты, СБП и наличные."
+
+[[faq]]
+q = "Есть парковка?"
+a = "Да, бесплатная парковка во дворе."

@@ -1,0 +1,29 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Бот записи клиентов</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; width: 1440px; height: 900px; background: linear-gradient(135deg, #17212b, #0e1621 60%, #1b2836);
+  font: 15px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #e9eef3; display: flex; flex-direction: column; padding: 46px 56px; }
+h1 { margin: 0 0 6px; font-size: 40px; letter-spacing: -0.02em; }
+p.lead { margin: 0 0 28px; color: #8ea3b6; font-size: 19px; }
+.row3 { display: flex; gap: 28px; flex: 1; min-height: 0; }
+.phone { flex: 1; background: #0e1621; border: 1px solid #243447; border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; }
+.phone header { background: #17212b; padding: 14px 18px; display: flex; flex-direction: column; border-bottom: 1px solid #243447; }
+.phone header small { color: #6c8aa5; }
+.chat { padding: 16px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; justify-content: flex-end; flex: 1; }
+.msg { max-width: 88%; padding: 9px 13px; border-radius: 14px; background: #182533; align-self: flex-start; }
+.msg.me { background: #2b5278; align-self: flex-end; }
+.kb { display: flex; flex-direction: column; gap: 5px; max-width: 88%; }
+.kb .row { display: flex; gap: 5px; }
+.kb span { flex: 1; text-align: center; background: rgba(90, 140, 190, .22); border-radius: 9px; padding: 7px 6px; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.admin { margin-top: auto; border-top: 1px dashed #2f4256; padding-top: 10px; color: #8ea3b6; font-size: 13px; }
+</style></head><body>
+<h1>Telegram-бот для записи клиентов</h1>
+<p class="lead">Свободное время считается само · напоминания · уведомления администратору · Python, aiogram, SQLite</p>
+<div class="row3">
+<section class="phone"><header><b>Барбершоп «Бритва»</b><small>бот</small></header>
+<div class="chat"><div class="msg me">/start</div><div class="msg bot">Здравствуйте, Анна! Это бот <b>Барбершоп «Бритва»</b>.<br><br>Здесь можно записаться, посмотреть цены и свои записи.</div><div class="kb"><div class="row"><span>📅 Записаться</span></div><div class="row"><span>💈 Услуги и цены</span><span>🗂 Мои записи</span></div><div class="row"><span>❓ Вопросы</span><span>📍 Контакты</span></div></div><div class="msg bot">Выберите услугу:</div><div class="kb"><div class="row"><span>Мужская стрижка · 1 500 ₽</span></div><div class="row"><span>Оформление бороды · 900 ₽</span></div><div class="row"><span>Стрижка + борода · 2 200 ₽</span></div><div class="row"><span>Детская стрижка · 1 000 ₽</span></div><div class="row"><span>← В меню</span></div></div></div></section>
+<section class="phone"><header><b>Выбор времени</b><small>бот</small></header>
+<div class="chat"><div class="msg bot"><b>Стрижка + борода</b>, пн, 26 окт<br>Выберите время:</div><div class="kb"><div class="row"><span>10:00</span><span>10:30</span><span>13:00</span><span>13:30</span></div><div class="row"><span>14:00</span><span>14:30</span><span>15:00</span><span>15:30</span></div><div class="row"><span>16:00</span><span>16:30</span><span>17:00</span><span>17:30</span></div><div class="row"><span>18:00</span><span>18:30</span></div><div class="row"><span>← Дни</span></div></div></div></section>
+<section class="phone"><header><b>Запись готова</b><small>бот</small></header>
+<div class="chat"><div class="msg bot">Номер получен ✓</div><div class="msg bot">✅ Готово! Вы записаны: пн, 26 окт в 13:00 — Стрижка + борода.<br>Видное, ул. Школьная, 1<br><br>Напомним за 3 ч.</div><div class="kb"><div class="row"><span>📅 Записаться</span></div><div class="row"><span>💈 Услуги и цены</span><span>🗂 Мои записи</span></div><div class="row"><span>❓ Вопросы</span><span>📍 Контакты</span></div></div><div class="admin">Администратору приходит:</div><div class="msg">🆕 Новая запись #2<br>пн, 26 окт в 13:00 — Стрижка + борода<br>Анна, +79001234567</div></div></section>
+</div></body></html>

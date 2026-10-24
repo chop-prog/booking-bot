@@ -1,0 +1,12 @@
+[project]
+name = "booking-bot"
+version = "1.0.0"
+description = "Telegram bot for booking clients: services, free time slots, reminders, admin notifications"
+requires-python = ">=3.11"
+dependencies = ["aiogram>=3.13", "tzdata"]
+
+[tool.pytest.ini_options]
+pythonpath = [".", "tests"]
+testpaths = ["tests"]
+asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"
