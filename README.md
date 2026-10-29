@@ -4,6 +4,8 @@
 
 **Бот для салона, барбершопа, мастерской или частного специалиста: клиент сам выбирает услугу, день и свободное время, бот напоминает о визите и сообщает администратору о каждой записи и отмене.**
 
+**[Попробовать в браузере →](https://chop-prog.github.io/booking-bot/)** — тот же сценарий записи без Telegram, с панелью «что видит администратор».
+
 Python · aiogram 3 · SQLite · pytest. Услуги, цены, часы работы и ответы на вопросы задаются в одном файле [`business.toml`](business.toml) — менять их можно без программиста.
 
 _English: a Telegram bot for booking appointments. Clients pick a service, a day and a free time slot; the bot checks clashes atomically, reminds clients before the visit and notifies admins. Business settings live in one TOML file. 28 pytest tests drive the whole conversation through a fake Telegram API._
@@ -47,6 +49,7 @@ flowchart LR
 | [`bot/ui.py`](bot/ui.py) | Тексты, форматирование дат и цен, клавиатуры |
 | [`bot/reminders.py`](bot/reminders.py) | Фоновая задача напоминаний |
 | [`business.toml`](business.toml) | Настройки бизнеса (демо: вымышленный барбершоп) |
+| [`web/`](web) | Веб-демо для браузера: те же услуги (`business.json` выгружается из `business.toml`) и те же правила слотов, проверенные `node:test` |
 
 ## Тесты
 

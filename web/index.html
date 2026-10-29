@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Бот записи клиентов — демо</title>
+<meta name="description" content="Попробуйте Telegram-бота для записи клиентов прямо в браузере: услуги, свободное время, подтверждение и уведомление администратору.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header class="intro">
+    <h1>Бот записи клиентов</h1>
+    <p>Попробуйте сами: это тот же сценарий, что в Telegram-боте. Свободное время считается по тем же правилам — длительность услуги, часы работы и уже занятые записи. Справа видно, что приходит администратору.</p>
+  </header>
+  <div class="stage">
+    <section class="phone" aria-label="Чат с ботом">
+      <div class="bar"><b id="biz-name">Бот</b><small>бот</small></div>
+      <div id="chat" class="chat" role="log" aria-live="polite"></div>
+      <form id="composer" class="composer" hidden>
+        <input id="input" autocomplete="off" aria-label="Сообщение">
+        <button type="submit" aria-label="Отправить">➤</button>
+      </form>
+    </section>
+    <aside class="admin" aria-label="Уведомления администратора">
+      <h2>Администратору приходит</h2>
+      <div id="admin" class="admin-feed"><p class="muted">Пока пусто — запишитесь слева.</p></div>
+      <p class="note">В настоящем боте эти сообщения приходят в Telegram администратора, клиенту — напоминание за 3 часа до визита.</p>
+    </aside>
+  </div>
+  <footer>Исходный код и тесты: <a href="https://github.com/chop-prog/booking-bot">github.com/chop-prog/booking-bot</a> · Python, aiogram 3, SQLite</footer>
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>
