@@ -10,7 +10,8 @@
 <body>
 <main>
   <header class="intro">
-    <h1>Бот записи клиентов</h1>
+    <h1 id="page-title">Бот записи клиентов</h1>
+    <p id="demo-notice" class="demo-notice" hidden></p>
     <p>Попробуйте сами: это тот же сценарий, что в Telegram-боте. Свободное время считается по тем же правилам — длительность услуги, часы работы и уже занятые записи. Справа видно, что приходит администратору.</p>
   </header>
   <div class="stage">
@@ -28,7 +29,8 @@
       <p class="note">В настоящем боте эти сообщения приходят в Telegram администратора, клиенту — напоминание за 3 часа до визита.</p>
     </aside>
   </div>
-  <footer>Исходный код и тесты: <a href="https://github.com/chop-prog/booking-bot">github.com/chop-prog/booking-bot</a> · Python, aiogram 3, SQLite</footer>
+  <p id="demo-contact" class="demo-contact" hidden>Хотите такого бота с вашими услугами? Напишите в Telegram: <a href="https://t.me/chunua4">@chunua4</a></p>
+  <footer><a href="ai.html">Версия с AI-администратором</a> · Исходный код и тесты: <a href="https://github.com/chop-prog/booking-bot">github.com/chop-prog/booking-bot</a> · Python, aiogram 3, SQLite</footer>
 </main>
 <script type="module" src="app.js"></script>
 </body>

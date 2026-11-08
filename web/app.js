@@ -1,5 +1,6 @@
 // Browser demo of the booking bot: the same menu, steps and texts, with bookings kept in memory.
 import { bookableDays, freeSlots, normalizePhone } from './slots.js';
+import { DEMO_NOTICE, demoConfig, findDemo } from './demos.js';
 
 const WEEKDAYS_SHORT = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 const MONTHS = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
@@ -9,6 +10,9 @@ const composer = document.getElementById('composer');
 const input = document.getElementById('input');
 
 const rub = (n) => n.toLocaleString('ru-RU') + ' ₽';
+// Personal demos may not know a price: a null price is left out instead of guessed.
+const price = (s) => (s.from ? 'от ' : '') + rub(s.price);
+const withPrice = (s) => (s.price == null ? s.name : `${s.name} · ${price(s)}`);
 const fmtDay = (d) => `${WEEKDAYS_SHORT[(d.getDay() + 6) % 7]}, ${d.getDate()} ${MONTHS[d.getMonth()]}`;
 const hhmm = (d) => d.toTimeString().slice(0, 5);
 
@@ -73,7 +77,7 @@ function menu() {
 const back = [['← В меню', menu]];
 
 function prices() {
-  say('Услуги и цены\n\n' + biz.services.map((s) => `• ${s.name} — ${rub(s.price)} (${s.minutes} мин)`).join('\n'), [back]);
+  say('Услуги и цены\n\n' + biz.services.map((s) => `• ${s.price == null ? s.name : `${s.name} — ${price(s)}`} (${s.minutes} мин)`).join('\n'), [back]);
 }
 function faq() { say(biz.faq.map((f) => `${f.q}\n${f.a}`).join('\n\n'), [back]); }
 function contacts() { say(`${biz.name}\n${biz.address}\n${biz.contacts}`, [back]); }
@@ -95,7 +99,7 @@ function cancel(b) {
 }
 
 function chooseService() {
-  say('Выберите услугу:', [...biz.services.map((s) => [[`${s.name} · ${rub(s.price)}`, () => chooseDay(s)]]), back]);
+  say('Выберите услугу:', [...biz.services.map((s) => [[withPrice(s), () => chooseDay(s)]]), back]);
 }
 
 function chooseDay(service) {
@@ -104,7 +108,7 @@ function chooseDay(service) {
   if (!days.length) return say(`На ближайшие ${biz.days_ahead} дн. свободного времени нет`, [back]);
   const rows = [];
   for (let i = 0; i < days.length; i += 3) rows.push(days.slice(i, i + 3).map((d) => [fmtDay(d), () => chooseTime(service, d)]));
-  say(`${service.name} · ${rub(service.price)}\nВыберите день:`, [...rows, [['← Услуги', chooseService]]]);
+  say(`${withPrice(service)}\nВыберите день:`, [...rows, [['← Услуги', chooseService]]]);
 }
 
 function chooseTime(service, day) {
@@ -142,7 +146,7 @@ composer.addEventListener('submit', (e) => {
     waitingFor = null;
     composer.hidden = true;
     const s = draft.service;
-    say(`Проверьте запись\n\nУслуга: ${s.name}\nКогда: ${fmtDay(draft.start)} в ${hhmm(draft.start)}\nДлительность: ${s.minutes} мин\nСтоимость: ${rub(s.price)}\nИмя: ${draft.name}\nТелефон: ${phone}`,
+    say(`Проверьте запись\n\nУслуга: ${s.name}\nКогда: ${fmtDay(draft.start)} в ${hhmm(draft.start)}\nДлительность: ${s.minutes} мин\n${s.price == null ? '' : `Стоимость: ${price(s)}\n`}Имя: ${draft.name}\nТелефон: ${phone}`,
       [[['✅ Подтвердить', confirm], ['Отмена', () => { draft = null; say('Хорошо, запись не создана.', [back]); }]]]);
   }
 });
@@ -161,6 +165,22 @@ function confirm() {
 
 async function start() {
   biz = await (await fetch('business.json')).json();
+  const slug = new URLSearchParams(location.search).get('b');
+  const demos = slug ? await fetch('demos.json').then((r) => (r.ok ? r.json() : {})) : {};
+  const entry = findDemo(demos, slug);
+  if (entry) {
+    biz = demoConfig(biz, entry);
+    document.title = `Бот записи — пример для ${biz.name}`;
+    document.getElementById('page-title').textContent = `Бот записи для: ${biz.name}`;
+    const notice = document.getElementById('demo-notice');
+    notice.textContent = DEMO_NOTICE(biz.name);
+    notice.hidden = false;
+    document.getElementById('demo-contact').hidden = false;
+    const robots = document.createElement('meta');
+    robots.name = 'robots';
+    robots.content = 'noindex';
+    document.head.append(robots);
+  }
   document.getElementById('biz-name').textContent = biz.name;
   // One booking already exists, so the time grid shows a real gap like a working day would.
   const now = new Date();

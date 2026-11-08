@@ -9,6 +9,7 @@ from __future__ import annotations
 import logging
 from collections.abc import Callable
 from datetime import date, datetime, timedelta
+from typing import TYPE_CHECKING
 
 from aiogram import Bot, F, Router
 from aiogram.exceptions import TelegramAPIError
@@ -21,6 +22,9 @@ from . import ui
 from .config import Business
 from .slots import bookable_days, free_slots
 from .storage import SlotTaken, Storage
+
+if TYPE_CHECKING:
+    from .ai_admin import AiAdmin
 
 log = logging.getLogger(__name__)
 router = Router()
@@ -242,5 +246,9 @@ async def schedule(message: Message, biz: Business, store: Storage, admins: froz
 
 
 @router.message()
-async def fallback(message: Message) -> None:
-    await message.answer("Нажмите /start, чтобы открыть меню.")
+async def fallback(message: Message, ai: AiAdmin | None = None) -> None:
+    if ai is None or not message.text:
+        await message.answer("Нажмите /start, чтобы открыть меню.")
+        return
+    answer = await ai.reply(message.from_user.id, message.text)
+    await message.answer(answer[:4000], parse_mode=None)  # model text is not HTML

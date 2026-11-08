@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-администратор — демо</title>
+<meta name="description" content="Как AI-администратор отвечает клиентам обычным текстом, проверяет свободное время и записывает.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header class="intro">
+    <h1>AI-администратор</h1>
+    <p>Клиент пишет как живому человеку, а бот понимает вопрос, сам смотрит свободное время и записывает. Если не знает ответа, зовёт администратора и ничего не выдумывает.</p>
+    <p class="demo-notice">Здесь показан заранее написанный сценарий, модель не подключена. Свободное время считается настоящим кодом бота, а его правила проверены тестами. В настоящем боте отвечает Claude API.</p>
+  </header>
+  <div class="scenarios" id="scenarios" role="group" aria-label="Сценарии"></div>
+  <div class="stage">
+    <section class="phone" aria-label="Чат с ботом">
+      <div class="bar"><b id="biz-name">Бот</b><small>AI-администратор</small></div>
+      <div id="chat" class="chat" role="log" aria-live="polite"></div>
+    </section>
+    <aside class="admin" aria-label="Уведомления администратора">
+      <h2>Администратору приходит</h2>
+      <div id="admin" class="admin-feed"><p class="muted">Пока пусто.</p></div>
+      <p class="note">Серые строки в чате — действия бота. Клиент их не видит, они показаны для наглядности.</p>
+    </aside>
+  </div>
+  <footer><a href="./">Обычный бот с кнопками</a> · Исходный код и тесты: <a href="https://github.com/chop-prog/booking-bot">github.com/chop-prog/booking-bot</a></footer>
+</main>
+<script type="module" src="ai.js"></script>
+</body>
+</html>

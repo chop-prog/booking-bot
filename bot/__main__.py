@@ -16,7 +16,7 @@ from aiogram.types import BotCommand
 
 from . import reminders
 from .config import load_business, load_secrets
-from .handlers import router
+from .handlers import notify_admins, router
 from .storage import Storage
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -33,6 +33,15 @@ async def main() -> None:
 
     bot = Bot(secrets.token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher(storage=MemoryStorage(), biz=biz, store=store, admins=secrets.admin_ids, clock=clock)
+    if os.environ.get("AI_ADMIN") == "1":  # optional: the button flow needs no API access
+        from anthropic import AsyncAnthropic
+
+        from .ai_admin import AiAdmin
+
+        async def notify(text: str) -> None:
+            await notify_admins(bot, secrets.admin_ids, text)
+
+        dp["ai"] = AiAdmin(AsyncAnthropic(), biz, store, clock, notify)
     dp.include_router(router)
     await bot.set_my_commands([BotCommand(command="start", description="Меню и запись")])
     reminder_task = asyncio.create_task(reminders.run(bot, biz, store, clock))  # keep a reference: tasks are weak
